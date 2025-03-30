@@ -1,13 +1,13 @@
 #include <iostream>
 #include <vector>
 #include <string>
-
-// Dołączamy nagłówki z katalogu include, dzięki target_include_directories
-#include "../include/SortAlgorithms.hpp"
+#include <chrono>
 #include "../include/DataGenerator.hpp"
+#include "../include/SortAlgorithms.hpp"
 
 using namespace std;
 
+// Funkcja wyświetlająca menu główne
 void displayMenu() {
     cout << "----------------------------------------" << endl;
     cout << "         MENU GLOWNE - SORTOWANIE       " << endl;
@@ -21,6 +21,7 @@ void displayMenu() {
     cout << "Wybor: ";
 }
 
+// Funkcja wyświetlająca menu sortowania
 void displaySortMenu() {
     cout << "\nWybierz algorytm sortowania:" << endl;
     cout << "1. Insertion Sort" << endl;
@@ -30,10 +31,20 @@ void displaySortMenu() {
     cout << "Wybor: ";
 }
 
+// Funkcja szablonowa do pomiaru czasu sortowania
+template <typename Func>
+void measureSortTime(Func sortFunction, vector<int>& arr, const string& sortName) {
+    auto start = chrono::high_resolution_clock::now();
+    sortFunction(arr);
+    auto end = chrono::high_resolution_clock::now();
+    auto duration = chrono::duration_cast<chrono::microseconds>(end - start);
+    cout << sortName << " zajal: " << duration.count() << " mikrosekund" << endl;
+}
+
 int main() {
     bool runProgram = true;
     int choice = 0;
-    vector<int> currentArray;  // Przechowuje aktualną tablicę
+    vector<int> currentArray;  // Aktualna tablica, na której będziemy pracować
 
     while (runProgram) {
         displayMenu();
@@ -42,7 +53,7 @@ int main() {
         switch (choice) {
             case 1: {
                 string filename;
-                cout << "Podaj nazwę pliku: ";
+                cout << "Podaj nazwe pliku: ";
                 cin >> filename;
                 currentArray = loadArray(filename);
                 if (!currentArray.empty())
@@ -76,41 +87,40 @@ int main() {
                 displaySortMenu();
                 int sortChoice;
                 cin >> sortChoice;
-
-                // Utwórz kopię, aby zachować oryginał do ewentualnych testów
+                // Tworzymy kopię tablicy, by oryginał pozostał bez zmian
                 vector<int> arrayToSort = currentArray;
 
                 switch (sortChoice) {
                     case 1:
-                        insertionSort(arrayToSort);
-                        cout << "Tablica posortowana metodą Insertion Sort:" << endl;
+                        measureSortTime(insertionSort, arrayToSort, "Insertion Sort");
                         break;
                     case 2:
-                        heapSort(arrayToSort);
-                        cout << "Tablica posortowana metodą Heap Sort:" << endl;
+                        measureSortTime(heapSort, arrayToSort, "Heap Sort");
                         break;
                     case 3:
-                        shellSort(arrayToSort);
-                        cout << "Tablica posortowana metodą Shell Sort:" << endl;
+                        measureSortTime(shellSort, arrayToSort, "Shell Sort");
                         break;
                     case 4: {
                         int pivotStrategy;
-                        cout << "\nWybierz strategię pivota dla Quick Sort:" << endl;
+                        cout << "\nWybierz strategie pivota dla Quick Sort:" << endl;
                         cout << "1. Lewy" << endl;
                         cout << "2. Prawy" << endl;
                         cout << "3. Srodkowy" << endl;
                         cout << "4. Losowy" << endl;
                         cout << "Wybor: ";
                         cin >> pivotStrategy;
-                        quickSort(arrayToSort, pivotStrategy);
-                        cout << "Tablica posortowana metodą Quick Sort:" << endl;
+                        // Używamy funkcji lambda, by dopasować interfejs funkcji do measureSortTime
+                        auto quickSortWrapper = [pivotStrategy](vector<int>& arr) {
+                            quickSort(arr, pivotStrategy);
+                        };
+                        measureSortTime(quickSortWrapper, arrayToSort, "Quick Sort");
                         break;
                     }
                     default:
                         cout << "Nieprawidlowy wybor algorytmu sortowania." << endl;
                         continue;
                 }
-                // Wyświetl posortowaną tablicę
+                cout << "Posortowana tablica:" << endl;
                 printArray(arrayToSort);
                 break;
             }

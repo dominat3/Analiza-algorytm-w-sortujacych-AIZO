@@ -17,12 +17,11 @@ void insertionSort(std::vector<int>& arr) {
     }
 }
 
-// Heap Sort
-// Funkcja pomocnicza do budowania kopca
+// Heap Sort - funkcja pomocnicza do budowania kopca
 static void heapify(std::vector<int>& arr, int n, int i) {
-    int largest = i;        // inicjujemy jako korzeń
-    int left = 2 * i + 1;     // lewy potomek
-    int right = 2 * i + 2;    // prawy potomek
+    int largest = i;
+    int left = 2 * i + 1;
+    int right = 2 * i + 2;
 
     if (left < n && arr[left] > arr[largest])
         largest = left;
@@ -53,7 +52,6 @@ void heapSort(std::vector<int>& arr) {
 // Shell Sort
 void shellSort(std::vector<int>& arr) {
     int n = arr.size();
-    // Używamy klasycznego odstępu n/2, a potem dzielimy przez 2
     for (int gap = n / 2; gap > 0; gap /= 2) {
         for (int i = gap; i < n; i++) {
             int temp = arr[i];
@@ -67,8 +65,9 @@ void shellSort(std::vector<int>& arr) {
     }
 }
 
-// Quick Sort
-// Funkcja pomocnicza: wybór pivota w zależności od strategii
+// Quick Sort - pomocnicze funkcje
+
+// Wybór pivota w zależności od strategii
 static int choosePivot(std::vector<int>& arr, int low, int high, int pivotStrategy) {
     if (pivotStrategy == 1) {
         // Lewy element
@@ -77,35 +76,31 @@ static int choosePivot(std::vector<int>& arr, int low, int high, int pivotStrate
         // Prawy element
         return high;
     } else if (pivotStrategy == 3) {
-        // Środkowy element
+        // Srodkowy element
         return low + (high - low) / 2;
     } else if (pivotStrategy == 4) {
         // Losowy element
         return low + rand() % (high - low + 1);
     }
-    // Domyślnie zwracamy prawy element
+    // Domyslnie zwracamy prawy element
     return high;
 }
 
-// Funkcja pomocnicza: przestawianie pivota na koniec i wykonanie partycjonowania
 static int partition(std::vector<int>& arr, int low, int high, int pivotStrategy) {
     int pivotIndex = choosePivot(arr, low, high, pivotStrategy);
-    std::swap(arr[pivotIndex], arr[high]); // Przenieś wybrany pivot na koniec
+    std::swap(arr[pivotIndex], arr[high]);
     int pivot = arr[high];
     int i = low - 1;
-
     for (int j = low; j < high; j++) {
         if (arr[j] <= pivot) {
             i++;
             std::swap(arr[i], arr[j]);
         }
     }
-
     std::swap(arr[i + 1], arr[high]);
     return i + 1;
 }
 
-// Rekurencyjna funkcja quickSort
 static void quickSortRecursive(std::vector<int>& arr, int low, int high, int pivotStrategy) {
     if (low < high) {
         int pi = partition(arr, low, high, pivotStrategy);
@@ -115,7 +110,6 @@ static void quickSortRecursive(std::vector<int>& arr, int low, int high, int piv
 }
 
 void quickSort(std::vector<int>& arr, int pivotStrategy) {
-    // Inicjujemy generator liczb losowych dla strategii losowego wyboru pivota
     srand(static_cast<unsigned int>(time(nullptr)));
     quickSortRecursive(arr, 0, arr.size() - 1, pivotStrategy);
 }

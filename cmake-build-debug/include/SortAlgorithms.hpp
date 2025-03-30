@@ -1,5 +1,4 @@
 #pragma once
-
 #include <vector>
 
 // Sortowanie przez wstawianie
@@ -13,5 +12,5 @@ void shellSort(std::vector<int>& arr);
 
 // Sortowanie szybkie (quick sort)
 // pivotStrategy określa strategię wyboru pivota:
-// 1 - lewy, 2 - prawy, 3 - środkowy, 4 - losowy
+// 1 - lewy, 2 - prawy, 3 - srodkowy, 4 - losowy
 void quickSort(std::vector<int>& arr, int pivotStrategy);

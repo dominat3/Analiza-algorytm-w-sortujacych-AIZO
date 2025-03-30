@@ -1,5 +1,4 @@
 #pragma once
-
 #include <vector>
 #include <string>
 
@@ -8,7 +7,6 @@
 std::vector<int> loadArray(const std::string& filename);
 
 // Generuje losową tablicę o zadanym rozmiarze.
-// Przydatne przy testach – na początek małe zbiory danych.
 std::vector<int> generateRandomArray(int size);
 
 // Wyświetla zawartość tablicy na standardowym wyjściu.
