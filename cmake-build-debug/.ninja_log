@@ -1,0 +1,7 @@
+# ninja log v6
+1257	1423	1743333404535209816	untitled	170852120cbebe8f
+6	216	1743334183669984600	CMakeFiles/untitled.dir/src/SortAlgorithms.cpp.o	26f5f00ac454b2aa
+7	216	1743334183670178597	CMakeFiles/untitled.dir/src/DataGenerator.cpp.o	8e39448b1f737e30
+31	1257	1743333403309033656	CMakeFiles/untitled.dir/main.cpp.o	ebde9078c571ec36
+5	86	1743336779263653342	build.ninja	8a654b03dc6237d4
+3	87	1743336779263653342	build.ninja	8a654b03dc6237d4

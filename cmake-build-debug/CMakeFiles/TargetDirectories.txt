@@ -1,0 +1,3 @@
+/Users/szymon/CLionProjects/AIZO_STylinski/cmake-build-debug/CMakeFiles/AIZO_STylinski.dir
+/Users/szymon/CLionProjects/AIZO_STylinski/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/szymon/CLionProjects/AIZO_STylinski/cmake-build-debug/CMakeFiles/rebuild_cache.dir
